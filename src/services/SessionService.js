@@ -11,5 +11,10 @@ export default {
 			method: 'POST',
 			data: params
 		});
+	},
+	deleteSessionInfo: function() {
+		return request('/api/session', {
+			method: 'DELETE'
+		});
 	}
 }

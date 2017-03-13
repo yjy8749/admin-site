@@ -9,7 +9,6 @@ export default {
 			})
 			res.end(JSON.stringify(MOCK_CONTEXT.session));
 		} else {
-			let result = [];
 			res.writeHeader(403, {
 				"Content-Type": CONTENT_TYPE
 			})
@@ -33,5 +32,13 @@ export default {
 		})
 
 		res.end(JSON.stringify(MOCK_CONTEXT.session));
+	},
+	'DELETE /api/session': (req, res) => {
+		MOCK_CONTEXT.lastLoginTime = null;
+		MOCK_CONTEXT.session = null;
+		res.writeHeader(200, {
+			"Content-Type": CONTENT_TYPE
+		})
+		res.end();
 	}
 };

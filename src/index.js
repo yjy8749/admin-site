@@ -1,20 +1,10 @@
 import dva from 'dva';
 import './index.css';
 import createLoading from 'dva-loading';
-
+import { OnErrorHandler } from './handler';
 // 1. Initialize
 const app = dva({
-	onError(error,dispatch){
-		// 全局错误处理
-		switch(error.message){
-			case 'Forbidden':{
-				dispatch({type:'app/createSessionInfo'});
-			}break;
-			default:{
-				console.log(error.stack);
-			}
-		}
-	},
+	onError:OnErrorHandler
 });
 
 // 2. Plugins
