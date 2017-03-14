@@ -9,7 +9,7 @@ export default {
 	createSessionInfo: function(params) {
 		return request('/api/session', {
 			method: 'POST',
-			data: params
+			body: JSON.stringify(params)
 		});
 	},
 	deleteSessionInfo: function() {

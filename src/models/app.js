@@ -31,7 +31,7 @@ export default {
         })
   	},
   	*createSessionInfo(args,{call, put}){
-  		let resp = yield SessionService.createSessionInfo();
+  		let resp = yield SessionService.createSessionInfo(args.values);
   		yield put({
           type : 'authSucceed',
           session : resp
