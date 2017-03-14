@@ -1,5 +1,4 @@
 import dva from 'dva';
-import './index.css';
 import createLoading from 'dva-loading';
 import { OnErrorHandler } from './handler';
 // 1. Initialize

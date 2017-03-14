@@ -1,21 +1,28 @@
 import React from 'react';
 import { connect } from 'dva';
-import styles from './IndexPage.css';
+import AuthenticationComponent from '../support/AuthenticationComponent';
+import LoginPage from '../components/page/LoginPage';
 
-function IndexPage(props) {
-  console.log(props);
-  return (
-    <div className={styles.normal}>
-        <h1 className={styles.title}>
-          {props.authenticated?'Successed':'Failed'}
-        </h1>
-    </div>
-  );
+class IndexPage extends AuthenticationComponent {
+
+	constructor(props) {
+		super(props);
+	}
+
+
+	render() {
+		return <div>
+			{ 
+				this.props.authenticated?
+				<h1>OK</h1>:
+				<LoginPage onOk={(values)=>{ this.props.dispatch({type:'app/createSessionInfo',values:values})}}/> 
+			}
+	    </div>
+	}
 }
 
-IndexPage.propTypes = {
-};
+function mapStateToProps({ app },props){
+	return { authenticated: app.authenticated };
+}
 
-export default connect(({ app },props)=>{
-  return { ...app };
-})(IndexPage);
+export default connect(mapStateToProps)(IndexPage);

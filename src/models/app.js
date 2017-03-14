@@ -8,7 +8,6 @@ export default {
   },
   reducers: {
   	authSucceed(state,{ session }){
-      console.log(session);
   		return {
   			...state,
   			authenticated:true,

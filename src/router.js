@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router, Route } from 'dva/router';
-import IndexPage from './routes/IndexPage';
 import routes from './router.config';
 
 /* module 按需加载的问题 https://github.com/dvajs/dva/issues/533 */
