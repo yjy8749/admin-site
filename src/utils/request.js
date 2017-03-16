@@ -10,6 +10,17 @@ function checkStatus(response) {
   }
 
   const error = new Error(response.statusText);
+  error.code = response.status;
+  error.response = response;
+  throw error;
+}
+
+function checkRespCode(response) {
+  if(response.code == 1000){
+    return response;
+  }
+  const error = new Error(response.message);
+  error.code = response.code;
   error.response = response;
   throw error;
 }
@@ -25,6 +36,7 @@ export default function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
+    .then(checkRespCode)
     // .then(data => ({ data }))
     // .catch(err => {});
 }
