@@ -1,6 +1,7 @@
 import dva from 'dva';
 import createLoading from 'dva-loading';
 import { OnErrorHandler } from './handler';
+
 // 1. Initialize
 const app = dva({
 	onError:OnErrorHandler

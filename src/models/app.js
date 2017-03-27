@@ -4,7 +4,8 @@ export default {
   namespace: 'app',
   state: {
   	authenticated:false,
-  	session:null
+  	session:null,
+    siderCollapsed:false,
   },
   reducers: {
   	authSucceed(state,{ session }){
@@ -20,7 +21,13 @@ export default {
   			authenticated:false,
   			session:null
   		}
-  	}
+  	},
+    changeSiderCollapsed(state,{ collapsed }){
+      return {
+        ...state,
+        siderCollapsed:collapsed
+      }
+    }
   },
   effects: {
   	*fetchSessionInfo(args, {call, put}){
