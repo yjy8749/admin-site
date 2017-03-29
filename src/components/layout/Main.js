@@ -12,7 +12,7 @@ const Main = (props) => {
 					<Sider />
 			</Layout.Sider>
 			<Layout>
-				<Layout.Header style={{ background: '#fff', padding:'0'}}> 
+				<Layout.Header style={{ background: '#fff', padding:'0',height:'50px'}}> 
 					<Header />
 				</Layout.Header>
 				<Layout.Content>

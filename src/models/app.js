@@ -34,14 +34,14 @@ export default {
   		let resp = yield SessionService.fetchSessionInfo();
   		yield put({
           type : 'authSucceed',
-          session : resp
+          session : resp.data
         })
   	},
   	*createSessionInfo(args,{call, put}){
   		let resp = yield SessionService.createSessionInfo(args.values);
   		yield put({
           type : 'authSucceed',
-          session : resp
+          session : resp.data
         })
   	},
     *deleteSessionInfo(args,{call, put}){
