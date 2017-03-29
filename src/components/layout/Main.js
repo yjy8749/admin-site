@@ -26,10 +26,6 @@ const Main = (props) => {
 	)
 }
 
-Main.propTypes = {
-
-}
-
 function mapStateToProps({ app },props){
 	return { siderCollapsed: app.siderCollapsed };
 }

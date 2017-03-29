@@ -1,20 +1,21 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { connect } from 'dva';
 import { Button, Row, Form, Input, Checkbox } from 'antd'
-import styles from './LoginPage.less';
-import config from '../../app.config';
+import styles from './LoginForm.less';
+import config from '../../app.config'; 
+import { createSessionInfo } from '../../actions/AppActions';
 
-const LoginPage = (props) => {
+const LoginForm = (props) => {
 
 	const { getFieldDecorator, validateFieldsAndScroll } = props.form;
-	const { onOk } = props;
 
-	function handleSubmit() {
+	function doLogin() {
 		validateFieldsAndScroll((errors, values) => {
 			if (errors) {
 				return;
 			}
-			onOk(values);
-		})
+			props.dispatch(createSessionInfo(values));
+		});
 	}
 
 
@@ -24,7 +25,7 @@ const LoginPage = (props) => {
 				<img src={config.logoSrc} />
 				<span>{config.logoText}</span>
 			</div>
-			<form>
+			<Form>
 				<Form.Item hasFeedback>
 					{
 						getFieldDecorator("username", {
@@ -55,17 +56,11 @@ const LoginPage = (props) => {
 					}
 				</Form.Item>
 				<Row>
-					<Button type='primary' size='large' onClick={handleSubmit}>
-						登录
-          			</Button>
+					<Button type='primary' size='large' onClick={doLogin}> 登录 </Button>
 				</Row>
-			</form>
+			</Form>
 		</div>
 	);
 }
 
-LoginPage.propTypes = {
-	onOk: PropTypes.func.isRequired
-}
-
-export default Form.create()(LoginPage)
+export default connect()(Form.create()(LoginForm))

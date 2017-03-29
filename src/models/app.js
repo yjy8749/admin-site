@@ -22,10 +22,10 @@ export default {
   			session:null
   		}
   	},
-    changeSiderCollapsed(state,{ collapsed }){
+    changeSiderCollapsed(state,{ siderCollapsed }){
       return {
         ...state,
-        siderCollapsed:collapsed
+        siderCollapsed:siderCollapsed
       }
     }
   },
