@@ -9,3 +9,11 @@ export const createSessionInfo = (values) => {
 export const deleteSessionInfo = (values) => {
 	return {type:'app/deleteSessionInfo'};	
 }
+
+export const currentMenuKeyChange = (currentMenuKey) => {
+	return {type:'app/currentMenuKeyChange',currentMenuKey:currentMenuKey}
+}
+
+export const openMenuKeysChange = (openMenuKeys) => {
+	return {type:'app/openMenuKeysChange',openMenuKeys:openMenuKeys}
+}

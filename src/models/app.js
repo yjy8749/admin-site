@@ -6,6 +6,8 @@ export default {
   	authenticated:false,
   	session:null,
     siderCollapsed:false,
+    currentMenuKey:"item7",
+    openMenuKeys:["sub2"]
   },
   reducers: {
   	authSucceed(state,{ session }){
@@ -26,6 +28,18 @@ export default {
       return {
         ...state,
         siderCollapsed:siderCollapsed
+      }
+    },
+    currentMenuKeyChange(state,{ currentMenuKey }){
+      return {
+        ...state,
+        currentMenuKey:currentMenuKey
+      }
+    },
+    openMenuKeysChange(state,{ openMenuKeys }){
+      return {
+        ...state,
+        openMenuKeys:openMenuKeys
       }
     }
   },

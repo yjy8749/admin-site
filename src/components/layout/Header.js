@@ -5,8 +5,6 @@ import { changeSiderCollapsed, deleteSessionInfo } from '../../actions/AppAction
 
 const Header = (props) => {
 
-	console.log(props)
-
 	const menuClick = (event) => {
 		switch(event.key){
 			case 'logout':{

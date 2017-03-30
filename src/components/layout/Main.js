@@ -1,9 +1,9 @@
-import React from 'react'
-import { Layout } from 'antd'
+import React from 'react';
+import { Layout } from 'antd';
 import { connect } from 'dva';
-import Sider from './Sider'
-import Header from './Header'
-import Footer from './Footer'
+import Sider from './Sider';
+import Header from './Header';
+import Bread from './Bread';
 
 const Main = (props) => {
 	return (
@@ -16,11 +16,11 @@ const Main = (props) => {
 					<Header />
 				</Layout.Header>
 				<Layout.Content>
-						{props.children}
+					<Bread />
+					<div style={{padding:"0px 24px"}}>
+						{props.children}	
+					</div>
 				</Layout.Content>
-				<Layout.Footer style={{ background: '#fff'}}>
-					<Footer />
-				</Layout.Footer>
 			</Layout>
 		</Layout>
 	)
