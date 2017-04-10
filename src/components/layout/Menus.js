@@ -1,6 +1,8 @@
 import { connect } from 'dva';
+import { Link } from 'dva/router'
 import { Menu, Icon } from 'antd';
 import { currentMenuKeyChange, openMenuKeysChange } from '../../actions/AppActions';
+import routers from '../../router.config'
 
 const Menus = (props) => {
 
@@ -12,44 +14,62 @@ const Menus = (props) => {
 		const latestOpenKey = openKeys.find(key => !(props.openMenuKeys.indexOf(key) > -1));
     	props.dispatch(openMenuKeysChange([latestOpenKey]));
 	}
+
+	const filterRouter = (arrays) => {
+		return arrays.filter( v => !v.hidden );
+	}
+
+	const getMenuItems = (path,arrays) => {
+		arrays = filterRouter(arrays);
+		path = path?path:"";
+		return arrays.map(router => {
+			let keyAndPath = (path=='/'?path:path+'/')+router.path;
+			if(router.childRoutes&&router.childRoutes.length){
+				return (
+					<Menu.SubMenu key={keyAndPath} title={<span><Icon type={router.icon} />{!props.siderCollapsed && router.description}</span>}>
+						{getMenuItems(keyAndPath,router.childRoutes)}
+					</Menu.SubMenu>
+				)
+			}else{
+				return (
+					<Menu.Item key={keyAndPath}>
+						<Link to={keyAndPath}><span><Icon type={router.icon} />{!props.siderCollapsed && router.description}</span></Link>
+					</Menu.Item>
+				)
+			}
+		});
+	}
+
+	const menuItems = routers.map(router => {
+		if(router.childRoutes&&router.childRoutes.length){
+			return getMenuItems(router.path,router.childRoutes);
+		}else{
+			return getMenuItems(null,[router]);
+		}
+	});
 	
 	return (
 	 	<Menu
 	 		theme="dark"
-	 		mode="inline"
+	 		mode={props.siderCollapsed?"vertical":"inline"}
 	 		onClick={onClick}
 	 		openKeys={props.openMenuKeys}
-	 		onOpenChange={onOpenChange}
+	 		onOpenChange={onOpenChange} 
 	 		selectedKeys={[props.currentMenuKey]}
 	 	>
-	 		<Menu.SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-	 			<Menu.Item key="item1"> option 1</Menu.Item>
-	 			<Menu.Item key="item2"> option 2</Menu.Item>
-	 			<Menu.Item key="item3"> option 3</Menu.Item>
-	 			<Menu.Item key="item4"> option 4</Menu.Item>
-	 			<Menu.Item key="item5"> option 5</Menu.Item>
-	 		</Menu.SubMenu>
-	 		<Menu.SubMenu key="sub2" title={<span><Icon type="mail" /><span>Navigation Two</span></span>}>
-	 			<Menu.Item key="item6"> option 6</Menu.Item>
-	 			<Menu.Item key="item7"> option 7</Menu.Item>
-	 			<Menu.Item key="item8"> option 8</Menu.Item>
-	 			<Menu.Item key="item9"> option 9</Menu.Item>
-	 			<Menu.Item key="item10"> option 10</Menu.Item>
-	 		</Menu.SubMenu>
-	 		<Menu.SubMenu key="sub3" title={<span><Icon type="mail" /><span>Navigation Two</span></span>}>
-	 			<Menu.Item key="item11"> option 6</Menu.Item>
-	 			<Menu.Item key="item12"> option 7</Menu.Item>
-	 			<Menu.Item key="item13"> option 8</Menu.Item>
-	 			<Menu.Item key="item14"> option 9</Menu.Item>
-	 			<Menu.Item key="item15"> option 10</Menu.Item>
-	 		</Menu.SubMenu>
+	 		<Menu.Item key="/"> <Link to="/"><Icon type="home" /> {!props.siderCollapsed && "首页"}</Link> </Menu.Item>
+	 		{menuItems}
 	 	</Menu>
 	);
 
 }
 
 function mapStateToProps({ app },props){
-	return { currentMenuKey: app.currentMenuKey, openMenuKeys: app.openMenuKeys };
+	return {
+		siderCollapsed: app.siderCollapsed,
+		currentMenuKey: app.currentMenuKey, 
+		openMenuKeys: app.openMenuKeys 
+	};
 }
 
 export default connect(mapStateToProps)(Menus);

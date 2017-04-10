@@ -14,7 +14,7 @@ class IndexPage extends AuthenticationComponent {
 	render() {
 
 		return (
-			this.props.authenticated ?<MainLayout> <p> content </p> </MainLayout>:<LoginForm />
+			this.props.authenticated?<MainLayout> { this.props.children } </MainLayout>:<LoginForm />
 		)
 	}
 }

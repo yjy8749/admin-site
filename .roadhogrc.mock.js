@@ -30,6 +30,19 @@ function errorResp(res, code = 1024, message = "") {
 
 export default {
 	'GET /api/session': (req, res) => {
+		
+		MOCK_CONTEXT.lastLoginTime = Date.now();
+		MOCK_CONTEXT.session = {
+			userInfo: {
+				userName: 'admin',
+				realName: '管理员',
+				portrait: 'http://172.16.57.62:48080/eif-omc-web/static/manage/img/logo_icon.png'
+			},
+			permission: [
+				'*.*.*'
+			]
+		};
+
 		if (MOCK_CONTEXT.isLoginSuccess()) {
 			successResp(res,MOCK_CONTEXT.session);
 		} else {

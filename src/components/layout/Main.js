@@ -15,11 +15,9 @@ const Main = (props) => {
 				<Layout.Header style={{ background: '#fff', padding:'0',height:'50px'}}> 
 					<Header />
 				</Layout.Header>
-				<Layout.Content>
+				<Layout.Content style={{margin:"0px 24px"}}>
 					<Bread />
-					<div style={{padding:"0px 24px"}}>
-						{props.children}	
-					</div>
+					<div>{props.children}</div>
 				</Layout.Content>
 			</Layout>
 		</Layout>

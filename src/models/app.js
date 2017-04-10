@@ -68,6 +68,11 @@ export default {
   subscriptions: {
   	setup ({ dispatch, history }) {
   		dispatch({type:'fetchSessionInfo'});
+      history.listen(location => {
+        let index = location.pathname.lastIndexOf("/");
+        dispatch({type:'currentMenuKeyChange',currentMenuKey:location.pathname});
+        dispatch({type:'openMenuKeysChange',openMenuKeys:[location.pathname.substr(0,index)]});
+      });
   	}
   },
 };
